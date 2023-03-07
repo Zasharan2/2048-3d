@@ -131,16 +131,30 @@ function setCubesFromPCubes() {
 }
 
 function addCube() {
-    var added = false;
-    var tempx, tempy, tempz;
-    while (!added) {
-        tempx = Math.floor(Math.random() * 4);
-        tempy = Math.floor(Math.random() * 4);
-        tempz = Math.floor(Math.random() * 4);
-        if (cubes[tempx][tempy][tempz].value == 0) {
-            cubes[tempx][tempy][tempz].value = 2;
-            added = true;
+    var tempCheck = false;
+    for (var l = 0; l < 4; l++) {
+        for (var m = 0; m < 4; m++) {
+            for (var n = 0; n < 4; n++) {
+                if (cubes[l][m][n] == 0) {
+                    tempCheck = true;
+                }
+            }
         }
+    }
+    if (tempCheck) {
+        var added = false;
+        var tempx, tempy, tempz;
+        while (!added) {
+            tempx = Math.floor(Math.random() * 4);
+            tempy = Math.floor(Math.random() * 4);
+            tempz = Math.floor(Math.random() * 4);
+            if (cubes[tempx][tempy][tempz].value == 0) {
+                cubes[tempx][tempy][tempz].value = 2;
+                added = true;
+            }
+        }
+    } else {
+        // cannot add cube
     }
 }
 

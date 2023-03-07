@@ -108,6 +108,8 @@ var clickSound = document.getElementById("clickSound");
 
 var selected = new Vector3(1, 1, 0);
 
+var easterEggs = [new Cube(new Vector3(-400, -400, -590), 800, 1), new Cube(new Vector3(600, -400, -590), 800, 3), new Cube(new Vector3(1600, -400, -590), 800, 5), new Cube(new Vector3(2600, -400, -590), 800, 7)];
+
 var cubes = Array(4).fill().map(() => Array(4).fill().map(() => Array(4).fill(0)));
 var pCubes = Array(4).fill().map(() => Array(4).fill().map(() => Array(4).fill(0)));
 
@@ -478,6 +480,15 @@ function game() {
         addCube();
     }
 
+    // update easter egg positions
+    for (var egg = 0; egg < easterEggs.length; egg++) {
+        easterEggs[egg].position.x += ((-400 + (egg * 1000) - (selected.x * 1000)) - easterEggs[egg].position.x) / 5
+        easterEggs[egg].position.y += ((-400 - (selected.y * 1000)) - easterEggs[egg].position.y) / 5
+        easterEggs[egg].position.z += ((-590 + (selected.z * 12)) - easterEggs[egg].position.z) / 5
+        
+        easterEggs[egg].setPoints();
+    }
+
     if (keys[" "] && timer > timerThreshold) {
         timer = 0;
         keyMode = (keyMode + 1) % 2;
@@ -495,6 +506,14 @@ function game() {
                 renderFill(cubes[i][j][k], COLOURS[cubes[i][j][k].value]);
             }
         }
+    }
+
+    // draw easter eggs
+    for (var egg = 0; egg < easterEggs.length; egg++) {
+        renderShadow(easterEggs[egg], "rgba(55, 105, 105, 127)");
+    }
+    for (var egg = 0; egg < easterEggs.length; egg++) {
+        renderFill(easterEggs[egg], "rgba(255, 0, 0)");
     }
 
     // draw move/push status

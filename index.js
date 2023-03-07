@@ -5,7 +5,9 @@ var keys = [];
 
 document.addEventListener("keydown", function (event) {
     keys[event.key] = true;
-    event.preventDefault();
+    if (["ArrowUp", "ArrowDown"].indexOf(event.key) > -1) {
+        event.preventDefault();
+    }
 });
 
 document.addEventListener("keyup", function (event) {
@@ -228,7 +230,6 @@ function renderFill(cube, fillColour) {
             }
         } else {
             if (cube.value == "garfield") {
-                console.log("e")
                 ctx.drawImage(garfield, 0, 0, 164, 172, screenShift + cube.points[0].x, screenShift + cube.points[0].y, Math.abs(cube.points[3].x - cube.points[0].x), Math.abs(cube.points[3].y - cube.points[0].y));
             }
         }

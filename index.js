@@ -510,7 +510,7 @@ function game() {
 
     // draw easter eggs
     for (var egg = 0; egg < easterEggs.length; egg++) {
-        renderShadow(easterEggs[egg], "rgba(55, 105, 105, 127)");
+        renderShadow(easterEggs[egg], "rgba(55, 0, 0, 127)");
     }
     for (var egg = 0; egg < easterEggs.length; egg++) {
         renderFill(easterEggs[egg], "rgba(255, 0, 0)");

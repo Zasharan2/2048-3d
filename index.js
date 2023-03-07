@@ -135,7 +135,7 @@ function addCube() {
     for (var l = 0; l < 4; l++) {
         for (var m = 0; m < 4; m++) {
             for (var n = 0; n < 4; n++) {
-                if (cubes[l][m][n] == 0) {
+                if (cubes[l][m][n].value == 0) {
                     tempCheck = true;
                 }
             }
@@ -201,7 +201,9 @@ function renderFill(cube, fillColour) {
         
         ctx.beginPath();
         ctx.fillStyle = "#ffffff";
-        if (cube.value < 10) {
+        if (cube.value == 0) {
+            // do nothing
+        } else if (cube.value < 10) {
             ctx.font = String(500 / cube.position.z) + "px Arial";
             ctx.fillText(cube.value, screenShift + cube.points[0].x + (240 / cube.position.z), screenShift + cube.points[0].y + (600 / cube.position.z));
         } else if (cube.value < 100) {

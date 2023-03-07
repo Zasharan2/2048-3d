@@ -2,13 +2,7 @@ body {
     background-color: rgb(50, 50, 100);
 }
 
-h1, h3 {
-    color: rgb(255, 255, 255);
-    font-family: "Comic Sans MS", Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
-p {
+h1, h3, p, li {
     color: rgb(255, 255, 255);
     font-family: "Comic Sans MS", Arial, Helvetica, sans-serif;
     text-align: center;

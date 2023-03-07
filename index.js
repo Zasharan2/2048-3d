@@ -5,6 +5,7 @@ var keys = [];
 
 document.addEventListener("keydown", function (event) {
     keys[event.key] = true;
+    event.preventDefault();
 });
 
 document.addEventListener("keyup", function (event) {
@@ -108,7 +109,11 @@ var clickSound = document.getElementById("clickSound");
 
 var selected = new Vector3(1, 1, 0);
 
+// 0, 0, 50
 var easterEggs = [new Cube(new Vector3(-400, -400, -590), 800, 1), new Cube(new Vector3(600, -400, -590), 800, 3), new Cube(new Vector3(1600, -400, -590), 800, 5), new Cube(new Vector3(2600, -400, -590), 800, 7)];
+
+// 72, 20, -750
+var easterEgg2 = new Cube(new Vector3(71600, 19600, 9010), 800, "garfield");
 
 var cubes = Array(4).fill().map(() => Array(4).fill().map(() => Array(4).fill(0)));
 var pCubes = Array(4).fill().map(() => Array(4).fill().map(() => Array(4).fill(0)));
@@ -188,6 +193,8 @@ function renderShadow(cube, shadowColour) {
     }
 }
 
+var garfield = document.getElementById("garfield");
+
 var renderFillOrder = [0, 1, 3, 2, 0];
 
 function renderFill(cube, fillColour) {
@@ -203,20 +210,27 @@ function renderFill(cube, fillColour) {
         
         ctx.beginPath();
         ctx.fillStyle = "#ffffff";
-        if (cube.value == 0) {
-            // do nothing
-        } else if (cube.value < 10) {
-            ctx.font = String(500 / cube.position.z) + "px Arial";
-            ctx.fillText(cube.value, screenShift + cube.points[0].x + (240 / cube.position.z), screenShift + cube.points[0].y + (600 / cube.position.z));
-        } else if (cube.value < 100) {
-            ctx.font = String(500 / cube.position.z) + "px Arial";
-            ctx.fillText(cube.value, screenShift + cube.points[0].x + (100 / cube.position.z), screenShift + cube.points[0].y + (600 / cube.position.z));
-        } else if (cube.value < 1000) {
-            ctx.font = String(400 / cube.position.z) + "px Arial";
-            ctx.fillText(cube.value, screenShift + cube.points[0].x + (60 / cube.position.z), screenShift + cube.points[0].y + (550 / cube.position.z));
-        } else if (cube.value < 10000) {
-            ctx.font = String(300 / cube.position.z) + "px Arial";
-            ctx.fillText(cube.value, screenShift + cube.points[0].x + (60 / cube.position.z), screenShift + cube.points[0].y + (530 / cube.position.z));
+        if (typeof cube.value != "string") {
+            if (cube.value == 0) {
+                // do nothing
+            } else if (cube.value < 10) {
+                ctx.font = String(500 / cube.position.z) + "px Arial";
+                ctx.fillText(cube.value, screenShift + cube.points[0].x + (240 / cube.position.z), screenShift + cube.points[0].y + (600 / cube.position.z));
+            } else if (cube.value < 100) {
+                ctx.font = String(500 / cube.position.z) + "px Arial";
+                ctx.fillText(cube.value, screenShift + cube.points[0].x + (100 / cube.position.z), screenShift + cube.points[0].y + (600 / cube.position.z));
+            } else if (cube.value < 1000) {
+                ctx.font = String(400 / cube.position.z) + "px Arial";
+                ctx.fillText(cube.value, screenShift + cube.points[0].x + (60 / cube.position.z), screenShift + cube.points[0].y + (550 / cube.position.z));
+            } else if (cube.value < 10000) {
+                ctx.font = String(300 / cube.position.z) + "px Arial";
+                ctx.fillText(cube.value, screenShift + cube.points[0].x + (60 / cube.position.z), screenShift + cube.points[0].y + (530 / cube.position.z));
+            }
+        } else {
+            if (cube.value == "garfield") {
+                console.log("e")
+                ctx.drawImage(garfield, 0, 0, 164, 172, screenShift + cube.points[0].x, screenShift + cube.points[0].y, Math.abs(cube.points[3].x - cube.points[0].x), Math.abs(cube.points[3].y - cube.points[0].y));
+            }
         }
     }
 }
@@ -489,6 +503,12 @@ function game() {
         easterEggs[egg].setPoints();
     }
 
+    easterEgg2.position.x += ((71600 - (selected.x * 1000)) - easterEgg2.position.x) / 5
+    easterEgg2.position.y += ((19600 - (selected.y * 1000)) - easterEgg2.position.y) / 5
+    easterEgg2.position.z += ((9010 + (selected.z * 12)) - easterEgg2.position.z) / 5
+    
+    easterEgg2.setPoints();
+
     if (keys[" "] && timer > timerThreshold) {
         timer = 0;
         keyMode = (keyMode + 1) % 2;
@@ -515,6 +535,9 @@ function game() {
     for (var egg = 0; egg < easterEggs.length; egg++) {
         renderFill(easterEggs[egg], "rgba(255, 0, 0)");
     }
+
+    renderShadow(easterEgg2, "rgba(0, 0, 0)");
+    renderFill(easterEgg2, "rgba(255, 255, 255)");
 
     // draw move/push status
     ctx.beginPath();

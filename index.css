@@ -1,0 +1,25 @@
+body {
+    background-color: rgb(50, 50, 100);
+}
+
+h1, h3, p, li {
+    color: rgb(255, 255, 255);
+    font-family: "Comic Sans MS", Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 0px;
+}
+
+h3 {
+    margin-top: 0px;
+}
+
+#gameCanvas {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0%;
+    padding-right: 0%;
+}

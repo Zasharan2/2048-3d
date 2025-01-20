@@ -195,8 +195,6 @@ function renderShadow(cube, shadowColour) {
     }
 }
 
-var garfield = document.getElementById("garfield");
-
 var renderFillOrder = [0, 1, 3, 2, 0];
 
 function renderFill(cube, fillColour) {
@@ -230,7 +228,7 @@ function renderFill(cube, fillColour) {
             }
         } else {
             if (cube.value == "garfield") {
-                ctx.drawImage(garfield, 0, 0, 164, 172, screenShift + cube.points[0].x, screenShift + cube.points[0].y, Math.abs(cube.points[3].x - cube.points[0].x), Math.abs(cube.points[3].y - cube.points[0].y));
+                // ctx.drawImage(garfield, 0, 0, 164, 172, screenShift + cube.points[0].x, screenShift + cube.points[0].y, Math.abs(cube.points[3].x - cube.points[0].x), Math.abs(cube.points[3].y - cube.points[0].y));
             }
         }
     }
